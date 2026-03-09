@@ -28,6 +28,7 @@ const io = new Server(server, {
     },
 });
 
+
 // Middleware
 app.use(helmet());
 app.use(cors({
@@ -84,3 +85,12 @@ mongoose
         console.error('❌ MongoDB connection error:', err.message);
         process.exit(1);
     });
+
+// Handle unhandled rejections/exceptions to prevent silent crashes
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('🔥 Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+    console.error('🔥 Unhandled Exception:', err);
+});

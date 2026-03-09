@@ -35,10 +35,11 @@ class SignClassifier {
         // ===============================
         // DIGITS 6–9 (thumb-touch rules)
         // ===============================
-        const thumbIndexClose  = dist(thumb, index)  < 0.045;
-        const thumbMiddleClose = dist(thumb, middle) < 0.045;
-        const thumbRingClose   = dist(thumb, ring)   < 0.045;
-        const thumbPinkyClose  = dist(thumb, pinky)  < 0.045;
+        const THRESHOLD = 0.055; // Slightly more lenient
+        const thumbIndexClose  = dist(thumb, index)  < THRESHOLD;
+        const thumbMiddleClose = dist(thumb, middle) < THRESHOLD;
+        const thumbRingClose   = dist(thumb, ring)   < THRESHOLD;
+        const thumbPinkyClose  = dist(thumb, pinky)  < THRESHOLD;
 
         if (thumbPinkyClose && noneExt) return "Six";
         if (thumbRingClose  && noneExt) return "Seven";
@@ -65,7 +66,7 @@ class SignClassifier {
         if (indexExt && !middleExt && !ringExt && !pinkyExt) return "One";
         if (indexExt && middleExt && !ringExt && !pinkyExt) return "Two";
         if (indexExt && middleExt && ringExt && !pinkyExt) return "Three";
-        if (allExt && thumb[0] < index[0]) return "Five";
+        if (allExt) return "Hello"; // Hello/Five overlap, Hello as primary
         if (indexExt && middleExt && ringExt && pinkyExt) return "Four";
 
         // ===============================

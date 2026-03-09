@@ -162,3 +162,7 @@ input:focus-within, textarea:focus-within {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
 }
+
+.mirror {
+  transform: scaleX(-1);
+}

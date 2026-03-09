@@ -17,6 +17,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
+      <head>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" async></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" async></script>
+      </head>
       <body className="font-inter antialiased">
         <AuthProvider>
           {children}

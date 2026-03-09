@@ -79,8 +79,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         toast.success("Logged out successfully");
     }, []);
 
+    const value = React.useMemo(() => ({
+        user, accessToken, isLoading, login, signup, logout, setSession
+    }), [user, accessToken, isLoading, login, signup, logout, setSession]);
+
     return (
-        <AuthContext.Provider value={{ user, accessToken, isLoading, login, signup, logout, setSession }}>
+        <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     );
