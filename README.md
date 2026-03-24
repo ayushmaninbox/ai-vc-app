@@ -1,46 +1,63 @@
-# ASL Sign Language Recognition
+# SignBridge - AI-Powered Sign Language Video Calling
 
-A machine learning project to recognize American Sign Language (ASL) alphabet gestures using a trained CNN model.
+SignBridge is a full-stack web application designed to facilitate seamless communication between sign language users and non-signers during video calls. It leverages computer vision for sign language recognition and WebRTC for high-quality video communication.
 
-## Setup
+## 🌟 Features
 
-### 1. Download the Dataset
+- **Real-time Sign Recognition**: Uses MediaPipe Hands on the frontend to detect and interpret sign language gestures.
+- **AI-Powered Sentence Framing**: Integrates with Google Gemini AI to transform recognized words into coherent, natural sentences.
+- **Video Calling**: Peer-to-peer video communication using WebRTC (Simple-Peer).
+- **Secure Authentication**: User authentication via JWT and Google OAuth.
+- **Real-time Updates**: Socket.io for instant messaging and call signaling.
 
-Download the ASL Alphabet dataset from Kaggle:
+## 🏗️ Project Structure
 
-**[ASL Alphabet Dataset](https://www.kaggle.com/datasets/grassknoted/asl-alphabet)**
-
-
-After downloading, extract the contents and place them in the project root:
-```
-training-sign-lang/
-├── asl_alphabet_train/
-├── asl_alphabet_test/
-├── train.py
-├── model.py
-└── camera.py
-```
-
-### 2. Install Dependencies
-
-```bash
-pip install tensorflow keras opencv-python numpy
+```text
+ai-vc-app/
+├── frontend/          # Next.js frontend application
+│   ├── src/           # React components and hooks
+│   └── public/        # Static assets
+├── backend/           # Node.js Express server
+│   ├── src/           # API routes, controllers, and models
+│   └── .env           # Server environment variables
+└── dev.sh             # Development startup script
 ```
 
-### 3. Train the Model
+## 🚀 Getting Started
 
-```bash
-python train.py
-```
+### Prerequisites
 
-### 4. Run the Camera
+- [Node.js](https://nodejs.org/) (v18 or later)
+- [MongoDB](https://www.mongodb.com/) (Atlas or local instance)
+- [Google Gemini API Key](https://aistudio.google.com/) (Optional, with fallback)
 
-```bash
-python camera.py
-```
+### Setup
 
-## Project Structure
+1.  **Clone the repository**:
+    ```bash
+    git clone <repository-url>
+    cd ai-vc-app
+    ```
 
-- `train.py` - Script to train the CNN model on the ASL dataset
-- `model.py` - Model architecture definition
-- `camera.py` - Real-time camera inference for sign language recognition
+2.  **Environment Variables**:
+    Ensure `backend/.env` is configured with your credentials. You can use `backend/.env.example` as a template.
+
+3.  **Run the Application**:
+    The included `dev.sh` script installs dependencies and starts both the frontend and backend in development mode.
+
+    ```bash
+    ./dev.sh
+    ```
+
+## 📡 Endpoints
+
+- **Frontend**: [http://localhost:3000](http://localhost:3000)
+- **Backend API**: [http://localhost:5000](http://localhost:5000)
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js, React, MediaPipe, Socket.io-client, simple-peer, Tailwind CSS.
+- **Backend**: Node.js, Express, MongoDB/Mongoose, Socket.io, Google Generative AI (Gemini).
+
+---
+Developed as an AI-powered accessibility solution.

@@ -63,7 +63,7 @@ echo "💻 [2/2] Starting Frontend Next.js App..."
 
 echo "---------------------------------------"
 echo "✅ Both services are starting!"
-echo "📡 Backend: http://localhost:5001"
+echo "📡 Backend: http://localhost:5000"
 echo "🌐 Frontend: http://localhost:3000"
 echo "Press Ctrl+C to stop both."
 echo "---------------------------------------"
