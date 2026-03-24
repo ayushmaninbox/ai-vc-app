@@ -62,7 +62,7 @@ export default function DashboardPage() {
             .then((r) => setCalls(r.data.data.calls))
             .catch(() => { })
             .finally(() => setLoadingCalls(false));
-    }, [user, router]);
+    }, [user, router, isLoading]);
 
     useEffect(() => {
         if (searchQ.trim().length < 2) { setSearchResults([]); return; }
@@ -93,19 +93,17 @@ export default function DashboardPage() {
     if (!user) return null;
 
     return (
-        <div className="min-h-screen bg-[#0a0a1a] flex">
+        <div className="min-h-screen bg-[#fbf9f5] flex text-[#1b1c1a]">
             {/* Sidebar */}
-            <aside className="w-64 glass border-r border-white/5 flex flex-col fixed h-full z-10">
-                <div className="p-6 border-b border-white/5">
+            <aside className="w-64 bg-[#f5f3ef] border-r border-[#dbdad6] flex flex-col fixed h-full z-10">
+                <div className="p-6 border-b border-[#dbdad6]">
                     <Link href="/" className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-teal-500 flex items-center justify-center">
-                            <Hand size={16} className="text-white" />
-                        </div>
-                        <span className="font-jakarta font-bold text-lg gradient-text">SignBridge</span>
+                        <Hand size={18} className="text-[#9a442d]" />
+                        <span className="font-serif font-semibold text-xl text-[#1b1c1a]">SignBridge</span>
                     </Link>
                 </div>
 
-                <nav className="flex-1 p-4 space-y-1">
+                <nav className="flex-1 p-4 space-y-1 mt-4">
                     {[
                         { href: "/dashboard", icon: Video, label: "Dashboard" },
                         { href: "/history", icon: Clock, label: "Call History" },
@@ -114,27 +112,27 @@ export default function DashboardPage() {
                         <Link
                             key={href}
                             href={href}
-                            className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all group"
+                            className="flex items-center gap-3 px-4 py-3 text-[#55423e] hover:text-[#1b1c1a] hover:bg-[#eae8e4] transition-all group font-body text-sm"
                         >
-                            <Icon size={18} className="group-hover:text-violet-400 transition-colors" />
-                            <span className="text-sm font-medium">{label}</span>
+                            <Icon size={18} className="group-hover:text-[#9a442d] transition-colors" />
+                            <span>{label}</span>
                         </Link>
                     ))}
                 </nav>
 
-                <div className="p-4 border-t border-white/5">
-                    <div className="flex items-center gap-3 px-4 py-3 rounded-xl glass-purple mb-2">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-violet-500 to-teal-500 flex items-center justify-center text-sm font-bold">
+                <div className="p-4 border-t border-[#dbdad6]">
+                    <div className="flex items-center gap-3 px-4 py-3 bg-[#eae8e4] mb-2 border border-[#dbdad6]">
+                        <div className="w-8 h-8 rounded-full bg-[#9a442d] flex items-center justify-center text-sm font-serif text-white shrink-0">
                             {user.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-white truncate">{user.name}</p>
-                            <p className="text-xs text-slate-400 capitalize">{user.role} user</p>
+                            <p className="text-sm font-semibold text-[#1b1c1a] truncate font-body">{user.name}</p>
+                            <p className="text-[10px] text-[#88726d] capitalize font-label tracking-wide">{user.role} user</p>
                         </div>
                     </div>
                     <button
                         onClick={async () => { await logout(); router.push("/"); }}
-                        className="w-full flex items-center gap-2 px-4 py-2 rounded-xl text-slate-400 hover:text-red-400 hover:bg-red-900/10 transition-all text-sm"
+                        className="w-full flex items-center gap-2 px-4 py-3 text-[#55423e] hover:text-[#ba1a1a] hover:bg-[#ffdbd2]/50 transition-all font-body text-sm rounded-none border border-transparent hover:border-[#ba1a1a]/20"
                     >
                         <LogOut size={16} />
                         Sign Out
@@ -143,86 +141,85 @@ export default function DashboardPage() {
             </aside>
 
             {/* Main content */}
-            <main className="ml-64 flex-1 p-8">
+            <main className="ml-64 flex-1 p-10 md:p-14">
                 {/* Header */}
-                <div className="mb-8">
-                    <h1 className="font-jakarta font-bold text-3xl text-white mb-1">
-                        Good day, {user.name.split(" ")[0]} 👋
+                <div className="mb-12">
+                    <p className="font-label text-xs text-[#9a442d] mb-2 tracking-[0.1em]">Welcome back</p>
+                    <h1 className="font-serif text-4xl text-[#1b1c1a] mb-2">
+                        Good day, {user.name.split(" ")[0]}
                     </h1>
-                    <p className="text-slate-400 text-sm">Ready to connect with the world?</p>
                 </div>
 
                 {/* Quick actions */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                     <button
                         onClick={startCall}
                         disabled={starting}
                         id="start-call-btn"
-                        className="group glass rounded-2xl p-6 text-left hover:bg-white/6 transition-all border border-violet-800/20 hover:border-violet-600/40"
+                        className="group bg-[#ffffff] p-8 text-left border border-[#dbdad6] hover:border-[#9a442d] transition-colors tuscan-shadow flex flex-col items-start"
                     >
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 to-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            {starting ? <Loader2 size={22} className="text-white animate-spin" /> : <Plus size={22} className="text-white" />}
+                        <div className="w-12 h-12 bg-[#9a442d] flex items-center justify-center mb-6 text-white group-hover:bg-[#7c2e19] transition-colors">
+                            {starting ? <Loader2 size={20} className="animate-spin" /> : <Plus size={20} />}
                         </div>
-                        <h3 className="font-jakarta font-semibold text-white mb-1">Start a Call</h3>
-                        <p className="text-slate-400 text-sm">Create a new video call room</p>
+                        <h3 className="font-serif text-xl border-b border-[#1b1c1a] pb-1 mb-2 inline-block">Start a Call</h3>
+                        <p className="font-body text-sm text-[#55423e]">Create a new video room instantly.</p>
                     </button>
 
                     <Link
                         href="/history"
-                        className="group glass rounded-2xl p-6 hover:bg-white/6 transition-all border border-teal-800/20 hover:border-teal-600/40"
+                        className="group bg-[#ffffff] p-8 text-left border border-[#dbdad6] hover:border-[#e07a5f] transition-colors tuscan-shadow flex flex-col items-start"
                     >
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-600 to-cyan-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <Clock size={22} className="text-white" />
+                        <div className="w-12 h-12 bg-[#f5f3ef] border border-[#dbdad6] flex items-center justify-center mb-6 text-[#9a442d] group-hover:bg-[#ffdbd2] transition-colors">
+                            <Clock size={20} />
                         </div>
-                        <h3 className="font-jakarta font-semibold text-white mb-1">Call History</h3>
-                        <p className="text-slate-400 text-sm">View your past calls</p>
+                        <h3 className="font-serif text-xl pb-1 mb-2">Call History</h3>
+                        <p className="font-body text-sm text-[#55423e]">Review your past conversations.</p>
                     </Link>
 
                     <Link
                         href="/profile"
-                        className="group glass rounded-2xl p-6 hover:bg-white/6 transition-all border border-blue-800/20 hover:border-blue-600/40"
+                        className="group bg-[#ffffff] p-8 text-left border border-[#dbdad6] hover:border-[#88726d] transition-colors tuscan-shadow flex flex-col items-start"
                     >
-                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <User size={22} className="text-white" />
+                        <div className="w-12 h-12 bg-[#f5f3ef] border border-[#dbdad6] flex items-center justify-center mb-6 text-[#1b1c1a] group-hover:bg-[#eae8e4] transition-colors">
+                            <User size={20} />
                         </div>
-                        <h3 className="font-jakarta font-semibold text-white mb-1">My Profile</h3>
-                        <p className="text-slate-400 text-sm">Update your settings</p>
+                        <h3 className="font-serif text-xl pb-1 mb-2">My Profile</h3>
+                        <p className="font-body text-sm text-[#55423e]">Manage account details and settings.</p>
                     </Link>
                 </div>
 
                 {/* Search users */}
-                <div className="glass rounded-2xl p-6 mb-6">
-                    <h2 className="font-jakarta font-semibold text-white mb-4 flex items-center gap-2">
-                        <Search size={18} className="text-violet-400" />
+                <div className="bg-[#ffffff] border border-[#dbdad6] p-8 mb-8 tuscan-shadow">
+                    <h2 className="font-serif text-2xl text-[#1b1c1a] mb-6 flex items-center gap-3">
                         Find Users
                     </h2>
-                    <div className="relative">
-                        <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
+                    <div className="relative mb-2">
+                        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#88726d]" />
                         <input
                             value={searchQ}
                             onChange={(e) => setSearchQ(e.target.value)}
                             placeholder="Search by name or email..."
-                            className="w-full bg-white/5 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 transition-colors"
+                            className="w-full bg-[#fbf9f5] border border-[#dbdad6] pl-12 pr-4 py-4 text-[#1b1c1a] placeholder-[#88726d] focus:outline-none focus:border-[#9a442d] transition-colors font-body text-sm"
                         />
-                        {searching && <Loader2 size={17} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 animate-spin" />}
+                        {searching && <Loader2 size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#9a442d] animate-spin" />}
                     </div>
 
                     {searchResults.length > 0 && (
-                        <div className="mt-3 space-y-2">
+                        <div className="mt-6 border-t border-[#dbdad6] pt-4">
                             {searchResults.map((u) => (
-                                <div key={u._id} className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-all">
-                                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-teal-500 flex items-center justify-center text-sm font-bold shrink-0">
+                                <div key={u._id} className="flex items-center gap-4 py-3 border-b border-[#f5f3ef] last:border-0 hover:bg-[#f5f3ef] transition-colors px-2 -mx-2">
+                                    <div className="w-10 h-10 rounded-full bg-[#9a442d] flex items-center justify-center text-sm font-serif text-white shrink-0">
                                         {u.name.charAt(0).toUpperCase()}
                                     </div>
-                                    <div className="flex-1">
-                                        <p className="text-sm font-medium text-white">{u.name}</p>
-                                        <p className="text-xs text-slate-400">{u.email} · {u.role}</p>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-semibold text-[#1b1c1a] font-body">{u.name}</p>
+                                        <p className="text-xs text-[#55423e] font-body">{u.email} · <span className="capitalize">{u.role}</span></p>
                                     </div>
-                                    <div className="flex items-center gap-1.5">
-                                        {u.isOnline && <Wifi size={12} className="text-emerald-400" />}
+                                    <div className="flex items-center gap-3">
+                                        {u.isOnline && <span className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-label text-emerald-700 bg-emerald-100 px-2 py-1"><Wifi size={10} /> Online</span>}
                                         <button
                                             onClick={startCall}
-                                            className="px-3 py-1.5 rounded-lg bg-violet-600/30 text-violet-300 text-xs font-medium hover:bg-violet-600/50 transition-colors"
+                                            className="px-4 py-2 border border-[#9a442d] text-[#9a442d] font-body text-xs uppercase tracking-wider hover:bg-[#9a442d] hover:text-white transition-colors"
                                         >
                                             Call
                                         </button>
@@ -234,51 +231,51 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Recent Calls */}
-                <div className="glass rounded-2xl p-6">
-                    <div className="flex items-center justify-between mb-4">
-                        <h2 className="font-jakarta font-semibold text-white flex items-center gap-2">
-                            <Phone size={18} className="text-teal-400" />
+                <div className="bg-[#ffffff] border border-[#dbdad6] p-8 tuscan-shadow">
+                    <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#dbdad6]">
+                        <h2 className="font-serif text-2xl text-[#1b1c1a]">
                             Recent Calls
                         </h2>
                         <Link
                             href="/history"
-                            className="text-xs text-violet-400 hover:text-violet-300 flex items-center gap-1 transition-colors"
+                            className="font-body text-sm text-[#9a442d] underline underline-offset-4 hover:text-[#e07a5f] transition-colors"
                         >
-                            View all <ChevronRight size={14} />
+                            View all
                         </Link>
                     </div>
 
                     {loadingCalls ? (
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                             {[1, 2, 3].map((i) => (
-                                <div key={i} className="h-14 shimmer rounded-xl" />
+                                <div key={i} className="h-16 bg-[#f5f3ef] animate-pulse" />
                             ))}
                         </div>
                     ) : calls.length === 0 ? (
-                        <div className="text-center py-10">
-                            <Video size={36} className="text-slate-600 mx-auto mb-3" />
-                            <p className="text-slate-400 text-sm">No calls yet. Start one!</p>
+                        <div className="text-center py-12 bg-[#f5f3ef] border border-[#dbdad6]">
+                            <Video size={30} className="text-[#88726d] mx-auto mb-4 opacity-50" />
+                            <p className="font-serif text-lg text-[#55423e] mb-2">No calls yet.</p>
+                            <p className="font-body text-sm text-[#88726d] mb-6">Start a conversation to see your history here.</p>
                             <button
                                 onClick={startCall}
-                                className="mt-4 px-4 py-2 rounded-lg bg-violet-600/30 text-violet-300 text-sm font-medium hover:bg-violet-600/50 transition-colors"
+                                className="btn-primary"
                             >
-                                + New Call
+                                New Call
                             </button>
                         </div>
                     ) : (
-                        <div className="space-y-2">
+                        <div className="divide-y divide-[#dbdad6]">
                             {calls.map((c) => (
-                                <div key={c._id} className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-all">
-                                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-teal-500 flex items-center justify-center text-sm font-bold shrink-0">
+                                <div key={c._id} className="flex items-center gap-4 py-4 hover:bg-[#fbf9f5] transition-colors px-2 -mx-2">
+                                    <div className="w-10 h-10 bg-[#eae8e4] text-[#1b1c1a] flex items-center justify-center text-sm font-serif shrink-0 border border-[#dbdad6]">
                                         {c.initiator?.name?.charAt(0).toUpperCase() || "?"}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-white truncate">{c.initiator?.name || "Unknown"}</p>
-                                        <p className="text-xs text-slate-400">{timeAgo(c.createdAt)} · {formatDuration(c.duration)}</p>
+                                        <p className="text-sm font-semibold text-[#1b1c1a] font-body truncate">{c.initiator?.name || "Unknown"}</p>
+                                        <p className="text-xs text-[#55423e] font-body mt-0.5">{timeAgo(c.createdAt)} · {formatDuration(c.duration)}</p>
                                     </div>
-                                    <span className={`text-xs px-2 py-0.5 rounded-full ${c.status === "ended" ? "bg-slate-700 text-slate-400" :
-                                            c.status === "active" ? "bg-emerald-900/50 text-emerald-400" :
-                                                "bg-amber-900/50 text-amber-400"
+                                    <span className={`font-label text-[10px] tracking-widest px-3 py-1 border ${c.status === 'ended' ? 'bg-[#f5f3ef] text-[#55423e] border-[#dbdad6]' :
+                                        c.status === 'active' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                                            'bg-[#ffdbd2] text-[#9a442d] border-[#e07a5f]'
                                         }`}>
                                         {c.status}
                                     </span>
